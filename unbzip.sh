@@ -5,6 +5,6 @@ for dir in $dirlist
 do
     echo $dir
     cd $dir
-    bzip2 -dk *.bz2
+    bzip2 -d *.bz2
     cd ..
 done
