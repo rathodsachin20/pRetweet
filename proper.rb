@@ -1,24 +1,39 @@
 #!/usr/bin/env ruby
-fr = File.open('00.json')
-fw = File.open('final.json', 'w')
 
-fw.puts("[")
-count = fr.readlines.size
-puts count
-count -= 1
-fr.close
-fr = File.open('00.json')
+def tojson(in_fname, out_fname)
+	out_path = "/Users/sahaj/Desktop/output/"
+	fr = File.open(in_fname)
+	fw = File.open(out_path + out_fname, 'w')
 
-count.times do
-	line = fr.readline + ","
+	fw.puts("[")
+	count = fr.readlines.size
+	puts count
+	count -= 1
+	fr.close
+	fr = File.open(in_fname)
+
+	count.times do
+		line = fr.readline + ","
+		fw.puts(line)
+	end
+	line = fr.readline
 	fw.puts(line)
-end
-line = fr.readline
-fw.puts(line)
-#IO.foreach('00.json') do |line|
-#	fw.puts(line + ",")
-#end
 
-fw.puts("]")
-fr.close
-fw.close
+	fw.puts("]")
+
+	fr.close
+	fw.close
+end
+
+dir_path = "/Users/sahaj/Desktop/new/*/"
+dirs = Dir.glob(dir_path)
+
+dirs.each do |d|
+	dirname = File.basename(d)
+	files = Dir.glob(d+"*.json")
+	files.each do |f|
+		out_fname = dirname + File.basename(f)
+		puts "Formatting " + File.basename(f) + " to "+ out_fname
+		tojson(f,out_fname)
+	end
+end
