@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 def tojson(in_fname, out_fname)
-	out_path = "/Users/sahaj/Desktop/output/"
+	out_path = "./out/"
 	fr = File.open(in_fname)
 	fw = File.open(out_path + out_fname, 'w')
 
@@ -25,9 +25,8 @@ def tojson(in_fname, out_fname)
 	fw.close
 end
 
-dir_path = "/Users/sahaj/Desktop/new/*/"
+dir_path = "./*/"
 dirs = Dir.glob(dir_path)
-
 dirs.each do |d|
 	dirname = File.basename(d)
 	files = Dir.glob(d+"*.json")
