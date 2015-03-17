@@ -7,7 +7,7 @@ N=6
 
 def linear():
     try:
-        con = mdb.connect('localhost', 'root', '', 'pretweet');
+        con = mdb.connect('localhost', 'xsiena', 'xsiena', 'pretweet');
 
         cur = con.cursor()
 #        cur.execute("Select * from tweets where retweet_count>0")
@@ -24,14 +24,23 @@ def linear():
         p = np.empty((0,N))
         target = np.empty((0,1))
         print p
+        rowlist = []
+        targetlist = []
         for row in rows:
             #print row
-            arr = np.array([i for i in row[7:]])
+            #arr = np.array([i for i in row[7:]])
             #print arr
-            p = np.append(p, arr)
-            target = np.append(target, row[6])
+            #p = np.append(p, arr)
+            rowlist.append(row[7:])
+            #target = np.append(target, row[6])
+            targetlist.append(row[6])
             #p = np.concatenate((p, arr), axis=0)
-        p = np.reshape(p, (len(p)/N, N) )
+        #p = np.reshape(p, (len(p)/N, N) )
+        print "converting list to nparray"
+        p = np.asarray(rowlist, dtype=int)
+        target = np.asarray(targetlist, dtype=int)
+        print "converted"
+        print "dimentions:", p.shape
         clf = linear_model.LinearRegression()
         #target = np.reshape(target, len(target), 1)
         print p.shape

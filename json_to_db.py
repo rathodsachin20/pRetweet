@@ -7,7 +7,7 @@ import glob
 
 def create_table():
     try:
-        con = mdb.connect('localhost', 'root', '', 'pretweet');
+        con = mdb.connect('localhost', 'xsiena', 'xsiena', 'pretweet');
 
         cur = con.cursor()
         cur.execute("CREATE TABLE IF NOT EXISTS tweets \
@@ -16,7 +16,7 @@ def create_table():
                       tweet_created_at INTEGER, \
                       user_created_at INTEGER, \
                       retweeted VARCHAR(6), \
-                      text VARCHAR(140), \
+                      text VARCHAR(500), \
                       retweet_count INTEGER, \
                       followers_count INTEGER, \
                       friends_count INTEGER, \
@@ -38,7 +38,7 @@ def create_table():
 
 def insert_row(r):
     try:
-        con = mdb.connect('localhost', 'root', '', 'pretweet');
+        con = mdb.connect('localhost', 'xsiena', 'xsiena', 'pretweet');
 
         cur = con.cursor()
         #print r
@@ -62,7 +62,7 @@ def insert_row(r):
 
 def drop_table():
     try:
-        con = mdb.connect('localhost', 'root', '', 'pretweet');
+        con = mdb.connect('localhost', 'xsiena', 'xsiena', 'pretweet');
 
         cur = con.cursor()
         cur.execute("DROP TABLE IF EXISTS tweets")

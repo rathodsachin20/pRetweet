@@ -8,7 +8,7 @@ N=7
 
 def pca():
     try:
-        con = mdb.connect('localhost', 'root', '', 'pretweet');
+        con = mdb.connect('localhost', 'xsiena', 'xsiena', 'pretweet');
 
         cur = con.cursor()
         cur.execute("Select * from tweets")
@@ -20,14 +20,25 @@ def pca():
         #p = np.array([1,1,1,1,1,1,1])
         #p = np.array([1,1,1,1,1,1,1])
         print p
+        count = 0
+        rowlist = []
         for row in rows:
             #print row
-            arr = np.array([i for i in row[6:]])
+            #arr = np.array([i for i in row[6:]])
             #print arr
-            p = np.append(p, arr)
+            #p = np.append(p, arr)
+            #p = np.vstack([p, arr])
+            #p = np.vstack([p, row[6:]])
+            rowlist.append(row[6:])
+            count += 1
+            if count%10000 == 0:
+                print "appended ", count
             #p = np.concatenate((p, arr), axis=0)
-        p = np.reshape(p, (len(p)/N, N) )
-        #print p
+        #p = np.reshape(p, (len(p)/N, N) )
+        print "converting list to nparray"
+        p = np.asarray(rowlist, dtype=int)
+        print "converted"
+        print "dimentions:", p.shape
         pca = PCA(n_components=N)
         print pca.fit(p)
         print "Variances:"

@@ -10,7 +10,7 @@ N=7
 
 def plot():
     try:
-        con = mdb.connect('localhost', 'root', '', 'pretweet');
+        con = mdb.connect('localhost', 'xsiena', 'xsiena', 'pretweet');
 
         cur = con.cursor()
         cur.execute("Select * from tweets where retweet_count>0")
@@ -24,14 +24,21 @@ def plot():
         #p = np.array([1,1,1,1,1,1])
         #p = np.ones(6)
         #print p
+        xlist = []
+        ylist = []
         for row in rows:
             #print row
             #arr = np.array([i for i in row[6:]])
             #print arr
-            px = np.append(px, row[7])
-            py = np.append(py, row[6])
+            #px = np.append(px, row[7])
+            #py = np.append(py, row[6])
+            xlist.append(row[7])
+            ylist.append(row[6])
             #p = np.concatenate((p, arr), axis=0)
-        
+
+        px = np.asarray(xlist, dtype=int)
+        py = np.asarray(ylist, dtype=int)
+
         for i in xrange(10):
             print px[i], ":", py[i]
         data = Data([Histogram( x=px, y=py )])
