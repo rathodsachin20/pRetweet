@@ -1,10 +1,11 @@
 from sklearn import linear_model
 import numpy as np
 import MySQLdb as mdb
-import plotly.plotly as ply
-from plotly.graph_objs import *
 
-ply.sign_in('rathodsachin20', 'z83geaui8i')
+import matplotlib
+matplotlib.use('Agg')
+
+import matplotlib.pyplot as plt
 
 N=7
 
@@ -39,14 +40,15 @@ def plot():
         px = np.asarray(xlist, dtype=int)
         py = np.asarray(ylist, dtype=int)
 
-        for i in xrange(100):
+        for i in xrange(10):
             print px[i], ":", py[i]
-        data = Data([Histogram( x=px, y=py )])
-        layout = Layout(title='#Followers and retweets', xaxis=XAxis(title='#followers' ), yaxis=YAxis( title='#retweets') )
-        fig = Figure(data=data, layout=layout)
 
-        plot_url = ply.plot(fig, filename='horizontal-histogram')
+        plt.plot(px, py)
 
+        plt.ylabel('#Retweets')
+        plt.xlabel('#Followers')
+        #plt.show()
+        plt.savefig('./graph.png')
 
     except mdb.Error, e:
         print "Error %d: %s" % (e.args[0],e.args[1])
