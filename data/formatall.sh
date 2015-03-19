@@ -1,5 +1,5 @@
 #!/bin/bash
-for i in {03..31}
+for i in {01..31}
 do
   cd $i
   ruby proper.rb
