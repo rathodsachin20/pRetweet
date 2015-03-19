@@ -17,8 +17,8 @@ def plot():
         
         cur.execute("Select count(*) from tweets")
         count = long(cur.fetchone()[0])
-
-        cur.execute("Select retweet_count, followers_count from tweets where retweet_count>0 order by followers_count desc")
+        
+        cur.execute("Select retweet_count, user_mentions from tweets where retweet_count>0 order by followers_count desc")
 
         rows = cur.fetchall()
         #print len(rows)
@@ -51,11 +51,11 @@ def plot():
 
         plt.ylabel('#Retweets')
         plt.xlabel('#Followers')
-        plt.title('#Retweets vs #Followers')
+        plt.title('#Retweets vs #UserMentions')
         txt = "Total #Tweets: " + str(count)
         plt.text(1,1, txt)
         #plt.show()
-        plt.savefig('./retweets-followers.png')
+        plt.savefig('./retweets-usermentions.png')
 
     except mdb.Error, e:
         print "Error %d: %s" % (e.args[0],e.args[1])
