@@ -49,11 +49,11 @@ def plot():
 
         plt.plot(px, py, marker='x', linestyle='..')
 
+        txt = "(Total #Tweets: " + str(count) +')'
         plt.ylabel('#AvgRetweets')
-        plt.xlabel('#Followers')
+        plt.xlabel('#Followers  '+txt)
         plt.title('#AvgRetweets vs #Followers')
-        txt = "Total #Tweets: " + str(count)
-        plt.text(1,1, txt)
+#        plt.text(1,1, txt)
         #plt.show()
         plt.savefig('./retweets-followers.png')
 
