@@ -10,7 +10,7 @@ def create_table():
         con = mdb.connect('localhost', 'xsiena', 'xsiena', 'pretweet');
 
         cur = con.cursor()
-        cur.execute("CREATE TABLE IF NOT EXISTS tweets \
+        cur.execute("CREATE TABLE IF NOT EXISTS tweetsall \
                      (id VARCHAR(100) PRIMARY KEY, \
                       isRetweeted VARCHAR(6), \
                       tweet_created_at INTEGER, \

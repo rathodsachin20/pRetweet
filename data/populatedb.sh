@@ -1,8 +1,8 @@
 #!/bin/bash
-for i in {01..10}
+for i in {11..20}
 do
     cd $i/out
-    #mv json_to_db.py out
+    cp ../../json_to_db.py .
     #cd out
     python json_to_db.py
     #cd ..
