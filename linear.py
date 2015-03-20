@@ -2,6 +2,7 @@ from sklearn import linear_model
 import numpy as np
 import MySQLdb as mdb
 
+from sklearn.preprocessing import scale
 
 N=6
 
@@ -11,7 +12,7 @@ def linear():
 
         cur = con.cursor()
 #        cur.execute("Select * from tweets where retweet_count>0")
-        cur.execute("Select * from tweets")
+        cur.execute("Select * from tweets LIMIT 20000")
 
         rows = cur.fetchall()
         #print len(rows)
@@ -26,6 +27,8 @@ def linear():
         print p
         rowlist = []
         targetlist = []
+        rowlist.append((0.0, 0.0, 0.0, 0.0, 0.0, 0.0))
+        targetlist.append(0.0)
         for row in rows:
             #print row
             #arr = np.array([i for i in row[7:]])
@@ -36,9 +39,12 @@ def linear():
             targetlist.append(row[6])
             #p = np.concatenate((p, arr), axis=0)
         #p = np.reshape(p, (len(p)/N, N) )
+        rowlist = scale(rowlist)
+        targetlist = scale(targetlist)
         print "converting list to nparray"
         p = np.asarray(rowlist, dtype=int)
         target = np.asarray(targetlist, dtype=int)
+        col = ["followers_count","friends_count","user_mentions","urls_count","hashtags_count","favourites_count"]
         print "converted"
         print "dimentions:", p.shape
         clf = linear_model.LinearRegression()
@@ -47,6 +53,7 @@ def linear():
         print target.shape
         print target
         clf.fit (p, target)
+        print "Factors:" , col
         print "Coeff:", clf.coef_
 
     except mdb.Error, e:

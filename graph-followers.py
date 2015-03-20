@@ -17,8 +17,9 @@ def plot():
         
         cur.execute("Select count(*) from tweets")
         count = long(cur.fetchone()[0])
-        
-        cur.execute("Select avg(retweet_count), user_mentions from tweets group by user_mentions")
+
+        #cur.execute("Select avg(retweet_count), followers_count from tweets group by followers_count limit 10000")
+        cur.execute("Select avg(retweet_count), followers_count from tweets where followers_count<=100000 and retweet_count<6000 group by followers_count")
 
         rows = cur.fetchall()
         #print len(rows)
@@ -47,18 +48,18 @@ def plot():
 #        for i in xrange(10):
 #            print px[i], ":", py[i]
 
-        print "AvgRetweets", py
-        print "Usermentions", px
-        #plt.bar(px, py)
-        plt.plot(px, py, marker='x', linestyle='..')
+        #plt.plot(px, py, marker='x', linestyle='..')
+        ##print "AvgRetweets", px
+        ##print "Followers", py
+        plt.bar(px, py)
 
         txt = "(Total #Tweets: " + str(count) +')'
         plt.ylabel('#AvgRetweets')
-        plt.xlabel('#UserMentions')
-        plt.title('#AvgRetweets vs #UserMentions')
+        plt.xlabel('#Followers  '+txt)
+        plt.title('#AvgRetweets vs #Followers')
 #        plt.text(1,1, txt)
         #plt.show()
-        plt.savefig('./retweets-usermentions.png')
+        plt.savefig('./retweets-followers.png')
 
     except mdb.Error, e:
         print "Error %d: %s" % (e.args[0],e.args[1])

@@ -65,22 +65,22 @@ def pca():
         pz = np.asarray(pca.components_[2], dtype=float)
         
         #plt.subplot(2, 1, 1)
+        """
         plt.plot(px, py, marker='x', linestyle='..')
         ax = plt.axes()
         for x, y, c in zip(px,py,col):
             ax.arrow(0, 0, x, y, head_width=0.01, head_length=0.05, fc='k', ec='k', label=c)
             plt.annotate(c, xy=(x, y), xytext=(x, y), arrowprops=dict(facecolor='black', shrink=0.05),)
         plt.savefig('./pca-0vs1.png')
+        """
 
         #plt.subplot(2, 1, 2)
-        """
-        plt.plot(py, pz, marker='o', linestyle='..')
+        plt.plot(px, pz, marker='o', linestyle='..')
         ax = plt.axes()
-        for y, z, c in zip(py,pz,col):
-            ax.arrow(0, 0, y, z, head_width=0.01, head_length=0.05, fc='k', ec='k', label=c)
-            plt.annotate(c, xy=(y, z), xytext=(y, z), arrowprops=dict(facecolor='black', shrink=0.05),)
-        plt.savefig('./pca-1vs2.png')
-        """
+        for x, z, c in zip(px,pz,col):
+            ax.arrow(0, 0, x, z, head_width=0.01, head_length=0.05, fc='k', ec='k', label=c)
+            plt.annotate(c, xy=(x, z), xytext=(x, z), arrowprops=dict(facecolor='black', shrink=0.05),)
+        plt.savefig('./pca-0vs2.png')
 
 
     except mdb.Error, e:

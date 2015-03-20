@@ -18,7 +18,7 @@ def plot():
         cur.execute("Select count(*) from tweets")
         count = long(cur.fetchone()[0])
         
-        cur.execute("Select count(retweet_count), urls_count from tweets group by urls_count")
+        cur.execute("Select avg(retweet_count), urls_count from tweets group by urls_count")
 
         rows = cur.fetchall()
         #print len(rows)
@@ -38,16 +38,19 @@ def plot():
             #px = np.append(px, row[7])
             #py = np.append(py, row[6])
             xlist.append(row[1])
-            ylist.append(row[0])
+            ylist.append(float(row[0]))
             #p = np.concatenate((p, arr), axis=0)
 
         px = np.asarray(xlist, dtype=int)
-        py = np.asarray(ylist, dtype=int)
+        py = np.asarray(ylist, dtype=float)
 
         #for i in xrange(10):
         #    print px[i], ":", py[i]
 
+        print "AvgRetweets", py
+        print "Urls", px
         plt.plot(px, py, marker='x', linestyle='..')
+        #plt.bar(px, py)
 
         txt = "(Total #Tweets: " + str(count) +')'
         plt.ylabel('#AvgRetweets')

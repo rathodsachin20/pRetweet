@@ -17,8 +17,10 @@ def plot():
         
         cur.execute("Select count(*) from tweets")
         count = long(cur.fetchone()[0])
-        
-        cur.execute("Select avg(retweet_count), user_mentions from tweets group by user_mentions")
+
+        #cur.execute("Select retweet_count, followers_count from tweets group by followers_count order by followers_count asc limit 10000")
+        cur.execute("Select retweet_count, followers_count from tweets where followers_count<10000")
+        #cur.execute("Select avg(retweet_count), followers_count from twee limit 10000")
 
         rows = cur.fetchall()
         #print len(rows)
@@ -29,36 +31,50 @@ def plot():
         #p = np.array([1,1,1,1,1,1])
         #p = np.ones(6)
         #print p
-        xlist = []
-        ylist = []
+        xxlist = []
+        yylist = []
         for row in rows:
             #print row
             #arr = np.array([i for i in row[6:]])
             #print arr
             #px = np.append(px, row[7])
             #py = np.append(py, row[6])
-            xlist.append(row[1])
-            ylist.append(float(row[0]))
+            xxlist.append(row[1])
+            yylist.append(row[0])
             #p = np.concatenate((p, arr), axis=0)
 
+        xlist = [x*100 for x in xrange(100)]
+        ylist = [0 for x in xrange(100)]
+        counttw = [0 for x in xrange(100)]
+        countretw = [0 for x in xrange(100)]
+        for x,y in zip(xxlist, yylist):
+            if x%100 < 100:
+                ylist[x%100] += y
+                #if y==0:
+                counttw[x%100] += 1
+                #else:
+                #    countretw[x%100] += 1
+
+        for y,c in zip(ylist, counttw):
+            y = int(y/c)
+        print xlist
+        print ylist
         px = np.asarray(xlist, dtype=int)
-        py = np.asarray(ylist, dtype=float)
+        py = np.asarray(ylist, dtype=int)
 
 #        for i in xrange(10):
 #            print px[i], ":", py[i]
 
-        print "AvgRetweets", py
-        print "Usermentions", px
-        #plt.bar(px, py)
-        plt.plot(px, py, marker='x', linestyle='..')
+        #plt.plot(px, py, marker='x', linestyle='..')
+        plt.bar(px, py)
 
         txt = "(Total #Tweets: " + str(count) +')'
         plt.ylabel('#AvgRetweets')
-        plt.xlabel('#UserMentions')
-        plt.title('#AvgRetweets vs #UserMentions')
+        plt.xlabel('#Followers  '+txt)
+        plt.title('#AvgRetweets vs #Followers')
 #        plt.text(1,1, txt)
         #plt.show()
-        plt.savefig('./retweets-usermentions.png')
+        plt.savefig('./retweets-followers-new.png')
 
     except mdb.Error, e:
         print "Error %d: %s" % (e.args[0],e.args[1])
