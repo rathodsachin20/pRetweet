@@ -3,22 +3,22 @@
 Directories:
 ============
 
-pRetweet
- |__ data
-      |__ 01
-      |__ 02
-      |__  :
-      |__ 31
-      |__ dw.sh           : download datasets
-      |__ unbzipall.sh    : for each directory in 01..31, unbzip folder locally (using unbzip.sh)
-      |__ formatall.sh    : go to each directory, format json to correct format using proper.rb, puts formatted files in 'out' folder
-      |__ populateall.sh  : get all data from out folder and insert into db
-      |__ unbzip.sh
-      |__ proper.rb
-      |__ json_to_db.py
- |__ pca.py       :
- |__ linear.py    :
- |__ graph*.py ..  :
+pRetweet  
+ |__ data  
+...|__ 01  
+...|__ 02  
+...|__  :  
+...|__ 31  
+...|__ dw.sh           : download datasets  
+...|__ unbzipall.sh    : for each directory in 01..31, unbzip folder locally (using unbzip.sh)  
+...|__ formatall.sh    : go to each directory, format json to correct format using proper.rb, puts formatted files in 'out' folder  
+...|__ populateall.sh  : get all data from out folder and insert into db  
+...|__ unbzip.sh  
+...|__ proper.rb  
+...|__ json_to_db.py  
+ |__ pca.py       :  
+ |__ linear.py    :  
+ |__ graph*.py ..  :  
 
 
 Instructions:
