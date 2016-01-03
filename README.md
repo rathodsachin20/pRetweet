@@ -1,7 +1,16 @@
+## Predicting Retweetability of a tweet:
+
+This project is based on the paper [Factors Impacting Retweet in Twitter Network](http://www-users.cs.umn.edu/~echi/papers/2010-socialcom/2010-06-25-retweetability-cameraready-v3.pdf). 
+We gathered content and contexual features from a dataset of tweets and it is used to identify factors associated with retweet rate.  
+Features used include: followers_count, friends_count, user_mentions, urls_count, hashtags_count, favourites_count  
+
+#### Dataset:
+https://archive.org/details/archiveteam-json-twitterstream-2012 (27 million tweets)  
 
 
-Directories:
-============
+Principle Component Analysis (PCA) and Generalised Linear Modelling were used to analyze the factors affecting retweet rate.
+
+### Directories:
 
 pRetweet  
  |__ data  
@@ -21,8 +30,7 @@ pRetweet
  |__ graph*.py ..  :  
 
 
-Instructions:
-=============
+### Instructions:
 
 1. Download Datasets using dw.sh. There are 31 .zip files. Unzip all and put unzipped folders (01..31) in data folder.
 
